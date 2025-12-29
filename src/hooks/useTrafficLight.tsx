@@ -13,10 +13,6 @@ const useTrafficLight = (initialColor: TrafficLightColor) => {
   const [countdown, setCountdown] = useState(5);
 
   useEffect(() => {
-    console.log(`La luz actual es: ${light}`);
-  }, [light]);
-
-  useEffect(() => {
     if (countdown === 0) return;
     const intervalId = setInterval(() => {
       setCountdown((prev) => prev - 1);
