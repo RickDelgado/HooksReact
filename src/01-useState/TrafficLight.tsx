@@ -34,7 +34,7 @@ export const TrafficLight = () => {
         <div
           className={`w-32 h-32 ${
             light === "green" ? colors[light] : "bg-gray-500"
-          } rounded-full`}
+          } rounded-full border-4 border-gray-700`}
         ></div>
 
         {/* Botón para cambiar el estado de la luz */}
