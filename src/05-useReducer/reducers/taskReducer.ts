@@ -12,12 +12,17 @@ interface TaskState {
 }
 
 export function getInitialTaskState(): TaskState {
-  return {
-    todos: [],
-    length: 0,
-    completed: 0,
-    pending: 0,
-  };
+  const localStorageState = localStorage.getItem("tasks-state");
+  if (!localStorageState) {
+    return {
+      todos: [],
+      length: 0,
+      completed: 0,
+      pending: 0,
+    };
+  }
+
+  return JSON.parse(localStorageState) as TaskState;
 }
 
 export type TaskAction =
@@ -27,7 +32,7 @@ export type TaskAction =
 
 export const taskReducer = (
   state: TaskState,
-  action: TaskAction
+  action: TaskAction,
 ): TaskState => {
   switch (action.type) {
     case "ADD_TODO":
@@ -46,7 +51,7 @@ export const taskReducer = (
       const updatedTodos = state.todos.map((todo) =>
         todo.id === action.payload
           ? { ...todo, completed: !todo.completed }
-          : todo
+          : todo,
       );
       return {
         ...state,
@@ -56,7 +61,7 @@ export const taskReducer = (
       };
     case "DELETE_TODO":
       const filteredTodos = state.todos.filter(
-        (todo) => todo.id !== action.payload
+        (todo) => todo.id !== action.payload,
       );
       return {
         ...state,
